@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{reportTitle}}</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
+
+        :root{
+            --font-main: 'Roboto', serif;
+            --font-mono: 'Roboto Mono', monospace;
+            --color-green: #0CCE6B;
+            --color-orange: #FFA400;
+            --color-red: #FF4E42;
+            --color-pass: var(--color-green);
+            --color-average: var(--color-orange);
+            --color-fail: var(--color-red);
+        }
+        html, body{
+            margin: 0;
+            font-size: 16px;
+            font-family: var(--font-main);
+        }
+        main{
+            display: grid;
+            grid-template-columns: minmax(auto, 52rem) 1fr;
+        }
+        table{
+            /* display: inline-block; */
+            border-collapse: collapse;
+            width: 100%;
+        }
+        thead > tr{
+            border: 0;
+        }
+        th{
+            font-size: 0.8em;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 1em 1em 0.5em 1em;
+            color: #404040;
+            text-align: left;
+        }
+        tbody{
+            width: 100%;
+        }
+        tr{
+            border-top: 1px solid silver;
+            border-bottom: 1px solid silver;
+            width: 100%;
+        }
+        td{
+            padding: 1rem;
+            vertical-align: top;
+            line-height: 1.5rem;
+        }
+        tr > td:nth-child(3){
+          white-space: nowrap;
+        }
+        tr > td:last-child{
+          min-width: 12rem;
+        }
+        td > ul{
+            margin: 0;
+            padding-left: 1rem;
+            line-height: 1.25rem;
+        }
+        td svg {
+            width: 0.8em;
+            height: 0.8em;
+        }
+        td.score{
+            font-family: var(--font-mono);
+            font-size: 1.1em;
+            font-weight: 500;
+            position: relative;
+            display: flex;
+            padding-top: 0.5rem;
+            text-align: center;           
+        }
+        td.pass{
+            color: var(--color-pass);
+        }
+        td.average{
+            color: var(--color-average);
+        }
+        td.fail{
+            color: var(--color-fail);
+        }
+        .gauge{
+            height: 2.5rem;
+            width: 2.5rem;
+        }
+        .gauge-base {
+            opacity: 0.05;
+        }
+        @keyframes load-gauge {
+            from { stroke-dasharray: 0 352; }
+        }
+        .gauge-arc {
+            fill: none;
+            transform-origin: 50% 50%;
+            animation: load-gauge 1s ease forwards;
+            animation-delay: 500ms;
+        }
+        td.pass .gauge-arc{
+            stroke: var(--color-pass);
+        }
+        td.average .gauge-arc{
+            stroke: var(--color-average);
+        }
+        td.fail .gauge-arc{
+            stroke: var(--color-fail);
+        }
+        td.score > .score-text {
+            margin-left: -2.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            line-height: 2.5rem;
+        }
+        iframe{
+            width: 100%;
+            min-height: 100vh;
+            height: 100%;
+            border: 0;
+            background: #afafaf;
+        }
+    </style>
+</head>
+<body>
+    <main>{{reportContent}}</main> 
+    
+    <script>
+        function reportLinkClick(e){
+            e.preventDefault();
+            let reportLink = e.target;
+            let reportFrame = document.getElementById('reportframe');
+            reportFrame.src = reportLink.href;
+        }
+        let reportLinks = document.getElementsByClassName('reportLink');
+        for(const reportLink of reportLinks){
+            reportLink.addEventListener('click', reportLinkClick);
+        }
+        
+    </script>
+</body>
+</html>
