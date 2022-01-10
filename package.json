@@ -12,6 +12,7 @@
   "author": "chris ferguson",
   "license": "ISC",
   "dependencies": {
+    "boxen": "^5.1.0",
     "chalk": "^4.1.2",
     "chrome-launcher": "^0.14.1",
     "csv-parser": "^3.0.0",
